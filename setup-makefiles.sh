@@ -8,14 +8,12 @@
 
 set -e
 
-export DEVICE=mimameid
-export VENDOR=volla
-export DEVICE_BRINGUP_YEAR=2021
-export INITIAL_COPYRIGHT_YEAR=2021
+DEVICE=mimameid
+VENDOR=volla
 
 # Load extract_utils and do some sanity checks
 MY_DIR="${BASH_SOURCE%/*}"
-if [[ ! -d "$MY_DIR" ]]; then MY_DIR="$PWD"; fi
+if [[ ! -d "${MY_DIR}" ]]; then MY_DIR="${PWD}"; fi
 
 ANDROID_ROOT="${MY_DIR}/../../.."
 
@@ -24,15 +22,15 @@ if [ ! -f "${HELPER}" ]; then
     echo "Unable to find helper script at ${HELPER}"
     exit 1
 fi
-. "$HELPER"
+source "${HELPER}"
 
 # Initialize the helper
 setup_vendor "${DEVICE}" "${VENDOR}" "${ANDROID_ROOT}"
 
-# Copyright headers and guards
+# Warning headers and guards
 write_headers
 
-write_makefiles "$MY_DIR"/proprietary-files.txt true
+write_makefiles "${MY_DIR}/proprietary-files.txt" true
 
 # Finish
 write_footers

@@ -154,14 +154,14 @@ void Lights::setLightNotification(int id, const HwLightState& state) {
 }
 
 void Lights::applyNotificationState(const HwLightState& state) {
-    std::string blink_pattern = "1 ";
+    std::string led_time = "1 ";
     int brightness = RgbaToBrightness(state.color, max_led_brightness_);
 
     if (state.flashMode == FlashMode::TIMED && state.flashOnMs > 0 && state.flashOffMs > 0) {
-        blink_pattern += std::to_string(static_cast<uint32_t>(state.flashOnMs / 1000));
-        blink_pattern += " 1 ";
-        blink_pattern += std::to_string(static_cast<uint32_t>(state.flashOffMs / 1000));
-        WriteStringToFile(blink_pattern, WHITE_ATTR(led_time));
+        led_time += std::to_string(static_cast<uint32_t>(state.flashOnMs / 1000));
+        led_time += " 1 ";
+        led_time += std::to_string(static_cast<uint32_t>(state.flashOffMs / 1000));
+        WriteStringToFile(led_time, WHITE_ATTR(led_time));
         WriteToFile(WHITE_ATTR(blink), 1);
     } else {
         WriteToFile(WHITE_ATTR(brightness), brightness);
